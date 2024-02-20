@@ -27,6 +27,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         TextView username=(TextView) root.findViewById(R.id.username);
         TextView password=(TextView) root.findViewById(R.id.password);
         Button login=(Button) root.findViewById(R.id.loginbtn);
