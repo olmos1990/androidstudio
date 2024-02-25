@@ -7,7 +7,13 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.Button;
+import android.widget.EditText;
+import org.bson.Document;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import com.example.myapplication2024.databinding.ActivityMainBinding;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,10 +49,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                //MongoClientURI connectionString = new MongoClientURI("mongodb://10.0.2.2:27017");
+                MongoClientURI connectionString = new MongoClientURI("mongodb+srv://root:PotatoePie24@cluster0.vc6lp.mongodb.net/?retryWrites=true&w=majority");
+                MongoClient mongoClient = new MongoClient(connectionString);
+                MongoDatabase database = mongoClient.getDatabase("todo");
+                MongoCollection<Document> collection = database.getCollection("item");
+                Document doc = new Document("name", "MongoDB")
+                        .append("type", "database")
+                        .append("count", 1)
+                        .append("versions", Arrays.asList("v3.2", "v3.0", "v2.6"))
+                        .append("info", new Document("x", 203).append("y", 102));
+
+                collection.insertOne(doc);
                 Intent i = new Intent(MainActivity.this, ScrollingActivity.class);
                 startActivity(i);
             }
         });
+
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
